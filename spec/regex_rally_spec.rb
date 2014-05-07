@@ -83,4 +83,20 @@ describe "Working with Regular expressions" do
       expect(my_regex).to_not match(word)
     end
   end
+
+  it "matches phone numbers" do
+    my_regex = //
+    match = ["702-386-5397", "2128675309", "(212) 867-5309"]
+    do_not_match = ["123", "this isn't a number", "12345678900000"]
+
+    match.each do |word|
+      result = word.scan(my_regex)
+      expect(result.count).to eq(10)
+    end
+
+    do_not_match.each do |word|
+      result = word.scan(my_regex)
+      expect(result.count).to_not eq(10)
+    end
+  end
 end

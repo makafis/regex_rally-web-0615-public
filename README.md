@@ -1,6 +1,8 @@
 ---
 languages: ruby
-tags: 
+tags: regex
 ---
 
-# Title
+# Regex Rally
+
+Regex is awesome. Go do some exercises.

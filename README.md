@@ -14,3 +14,4 @@ Regex is awesome. Go do some exercises. This lab is test-driven so just run `rsp
 
 ## Resources
 * [Rubular](http://rubular.com/)
+* ["Regular Expressions, Say What" - Ruby-003 alum Bana](http://bandanakm.tumblr.com/post/64629161187/regular-expressions-say-what-s)

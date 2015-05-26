@@ -68,33 +68,83 @@ describe "Working with Regular expressions" do
     end
   end
 
-  it "matches valid email address" do
-    # Don't use the crazy one from the RFC!
-    my_regex = //
+  context "email addresses" do
+    it "matches one @ symbols" do
+      my_regex = //
 
-    match = %w{steven@flatironschool.com john.doe@example.com phil@example.co.uk }
-    do_not_match = ["steven@flatironschool", "user at example.com", "user@example.com@example.com"]
+      match = %w{steven@flatironschool.com john.doe@example.com phil@example.co.uk }
+      do_not_match = ["Steven Nunez", "Rose Weixel", "Deniz Unat"]
 
-    match.each do |word|
-      expect(my_regex).to match(word)
+      match.each do |word|
+        expect(my_regex).to match(word)
+      end
+
+      do_not_match.each do |word|
+        expect(my_regex).to_not match(word)
+      end
     end
 
-    do_not_match.each do |word|
-      expect(my_regex).to_not match(word)
+    it "matches character before and the @ symbols" do
+      my_regex = //
+
+      match = %w{steven@flatironschool.com john.doe@example.com phil@example.co.uk }
+      do_not_match = %w{ "user at example.com", "@example.com" }
+
+      match.each do |word|
+        expect(my_regex).to match(word)
+      end
+
+      do_not_match.each do |word|
+        expect(my_regex).to_not match(word)
+      end
+    end
+
+    it "matches character before, after and the @ symbols" do
+      my_regex = //
+
+      match = %w{steven@flatironschool.com john.doe@example.com phil@example.co.uk }
+      do_not_match = %w{ "user at example.com", "Steven Nunez flatironschool.com"}
+
+      match.each do |word|
+        expect(my_regex).to match(word)
+      end
+
+      do_not_match.each do |word|
+        expect(my_regex).to_not match(word)
+      end
+    end
+
+
+    it "matches valid email address" do
+      # Don't use the crazy one from the RFC!
+      my_regex = //
+
+      match = %w{steven@flatironschool.com john.doe@example.com phil@example.co.uk }
+      do_not_match = ["steven@flatironschool", "user at example.com", "user@example.com@example.com"]
+
+      match.each do |word|
+        expect(my_regex).to match(word)
+      end
+
+      do_not_match.each do |word|
+        expect(my_regex).to_not match(word)
+      end
     end
   end
 
-  it "matches valid US phone numbers regardless of format" do
-    my_regex = //
-    match = ["702-386-5397", "2128675309", "(212) 867-5309"]
-    do_not_match = ["123", "this isn't a number", "12345678900000"]
+  context "The scan method" do
+    it "matches valid US phone numbers regardless of format" do
+      my_regex = //
+      match = ["702-386-5397", "2128675309", "(212) 867-5309"]
+      do_not_match = ["123", "this isn't a number", "12345678900000", "abcdefghij", "123456789a"]
 
-    match.each do |word|
-      expect(my_regex).to match(word)
-    end
+      match.each do |word|
+        expect(word.scan(my_regex).length) to eq(10)
+      end
 
-    do_not_match.each do |word|
-      expect(my_regex).to_not match(word)
+      do_not_match.each do |word|
+        expect(word.scan(my_regex).length).to_not eq(10)
+      end
     end
   end
 end
